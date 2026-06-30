@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - name: Install Flet
-        run: pip install flet # <-- هاد السطر هو اللي كان ناقص
-      - name: Build EXE
-        run: flet build windows
+          python-python: '3.11'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Build EXE with PyInstaller
+        run: pyinstaller --noconfirm --onefile --windowed --name "PasswordGenerator" main.py
       - name: Zip EXE
-        run: Compress-Archive -Path build/windows/runner/Release -DestinationPath PasswordGenerator-EXE.zip
+        run: Compress-Archive -Path dist/PasswordGenerator.exe -DestinationPath PasswordGenerator-EXE.zip
       - uses: actions/upload-artifact@v4
         with:
           name: PasswordGenerator-EXE
